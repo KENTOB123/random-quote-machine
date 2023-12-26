@@ -12,17 +12,19 @@ function App() {
     }, false);
   });
 
-  const changeColor = () => {
-    let code = '0123456789ABCDEF';
-    let str = '#';
-    for (let i = 0; i < 6; i++) {
-        str += code[Math.floor(Math.random() * code.length)];      
-    }
-    return str;
-  };
-  // window.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("quote-box").style.backgroundColor = changeColor();
-  // });
+  function changeColor(){
+    const get256 = ()=>{ return Math.floor(Math.random()*256); };    // 0 ~ 255を返す
+    let [r, g, b] = [get256(), get256(), get256()];                 // ランダムでRGBカラーを設定
+    let color = `rgb(${r}, ${g}, ${b})`;                            // 文字列生成 'rgb(XX, XXX, XXX)'
+    return color;
+}
+  window.addEventListener("load", ()=>{
+  // クリックすると背景色が切り替わる
+  window.addEventListener("click", ()=>{
+      document.getElementById("text").style.color = changeColor();
+      document.getElementById("author").style.color = changeColor();
+  })
+});
   
   const newQuoteClick = () => {
       const randomQuotesList = Math.floor(Math.random() * ((quoteLists.length) + 1));
@@ -31,7 +33,6 @@ function App() {
       const randomAuthoer = dobuleQuotes.author;
       setNewQuote(randomQuote);
       setNewAuthor(randomAuthoer);
-      changeColor();
   };
 
 
